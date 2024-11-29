@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import { schema } from './graphql/schema'; // Import the GraphQL schema
-import { generateCity } from './generateCity'; // City generation logic
+// import { generateCity } from './generateCity'; // City generation logic
 
 const app = express();
 const port = process.env.PORT || 5000;
