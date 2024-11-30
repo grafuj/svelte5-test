@@ -22,7 +22,7 @@ server.applyMiddleware({ app });
 
 // Main route for city generation (you can add your generateCity logic here)
 app.post('/generateCity', (req, res) => {
-  const cityData = generateCity(req.body);  // Your city generation logic
+  const cityData = generateCity(req.body);  // rm this function for what it will be in the future
   res.json(cityData);
 });
 
