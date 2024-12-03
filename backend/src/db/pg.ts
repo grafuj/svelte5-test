@@ -11,10 +11,10 @@ dotenv.config();
 
 // PostgreSQL client setup
 const pool = new Pool({
-  user: "your_username", // replace with your PostgreSQL username
-  host: "localhost", // PostgreSQL server host
-  database: "your_db", // replace with your database name
-  password: "your_password", // replace with your password
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
   port: 5432, // default PostgreSQL port
 });
 
