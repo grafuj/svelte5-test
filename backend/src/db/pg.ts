@@ -1,5 +1,13 @@
-import postgres from "postgres";
 import { Pool } from "pg";
+
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
+
+// to check if postgreSQL is running use: sudo systemctl status postgresql
+// to start postgreSQL use: sudo systemctl start postgresql
+// to open postgreSQL node repl use: sudo -u postgres psql
 
 // PostgreSQL client setup
 const pool = new Pool({
