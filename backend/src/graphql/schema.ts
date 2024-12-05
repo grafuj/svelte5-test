@@ -5,27 +5,35 @@ import {
   GraphQLList,
   GraphQLFloat,
   GraphQLNonNull,
-} from 'graphql';
-// import { getUsers, addUser, getFilms, addFilm, getReviews, addReview } from '../db/pg';
-import { getUsers, addUser } from '../db/pg';
+} from "graphql";
+import {
+  getUsers,
+  addUser,
+  getFilms,
+  addFilm,
+  getReviews,
+  addReview,
+} from "../db/pg";
+
+import { Review, Film, User } from "types";
 
 // Define User type
 const UserType = new GraphQLObjectType({
-  name: 'User',
+  name: "User",
   fields: (): Record<string, any> => ({
     id: { type: new GraphQLNonNull(GraphQLString) },
     username: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve: (parent) => getReviews({ userId: parent.id }),
+      resolve: (parent: User) => getReviews({ userId: parent.id }),
     },
   }),
 });
 
 // Define Film type
 const FilmType = new GraphQLObjectType({
-  name: 'Film',
+  name: "Film",
   fields: (): Record<string, any> => ({
     id: { type: new GraphQLNonNull(GraphQLString) },
     name: { type: new GraphQLNonNull(GraphQLString) },
@@ -34,14 +42,14 @@ const FilmType = new GraphQLObjectType({
     genre: { type: new GraphQLNonNull(GraphQLString) },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve: (parent) => getReviews({ filmId: parent.id }),
+      resolve: (parent: User) => getReviews({ filmId: parent.id }),
     },
   }),
 });
 
 // Define Review type
 const ReviewType = new GraphQLObjectType({
-  name: 'Review',
+  name: "Review",
   fields: (): Record<string, any> => ({
     id: { type: new GraphQLNonNull(GraphQLString) },
     engagement: { type: GraphQLString },
@@ -63,18 +71,18 @@ const ReviewType = new GraphQLObjectType({
     overallScore: { type: new GraphQLNonNull(GraphQLFloat) },
     user: {
       type: UserType,
-      resolve: (parent) => getUsers({ id: parent.userId }),
+      resolve: (parent: Review) => getUsers({ id: parent.userId }),
     },
     film: {
       type: FilmType,
-      resolve: (parent) => getFilms({ id: parent.filmId }),
+      resolve: (parent: Review) => getFilms({ id: parent.filmId }),
     },
   }),
 });
 
 // Root Query
 const RootQuery = new GraphQLObjectType({
-  name: 'RootQueryType',
+  name: "RootQueryType",
   fields: (): Record<string, any> => ({
     users: {
       type: new GraphQLList(UserType),
@@ -93,7 +101,7 @@ const RootQuery = new GraphQLObjectType({
 
 // Mutations
 const Mutation = new GraphQLObjectType({
-  name: 'Mutation',
+  name: "Mutation",
   fields: (): Record<string, any> => ({
     addUser: {
       type: UserType,
@@ -102,7 +110,8 @@ const Mutation = new GraphQLObjectType({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve: async (_parent, args) => addUser(args.username, args.email, args.password),
+      resolve: async (_parent, args) =>
+        addUser(args.username, args.email, args.password),
     },
     addFilm: {
       type: FilmType,
@@ -112,7 +121,8 @@ const Mutation = new GraphQLObjectType({
         imdbUrl: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve: async (_parent, args) => addFilm(args.name, args.releaseDate, args.imdbUrl, args.genre),
+      resolve: async (_parent, args) =>
+        addFilm(args.name, args.releaseDate, args.imdbUrl, args.genre),
     },
     addReview: {
       type: ReviewType,
