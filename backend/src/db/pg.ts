@@ -1,4 +1,5 @@
 import { Pool } from "pg";
+import { User, Film, Review } from "types";
 
 import dotenv from "dotenv";
 
@@ -19,8 +20,14 @@ export const pool = new Pool({
 });
 
 // Function to get all users from the database
-export const getUsers = async () => {
+export const getUsers = async (filter?: { id?: string }): Promise<User[]> => {
   try {
+    if (filter?.id) {
+      const res = await pool.query("SELECT * FROM users WHERE id = $1", [
+        filter.id,
+      ]);
+      return res.rows;
+    }
     const res = await pool.query("SELECT * FROM users");
     return res.rows;
   } catch (err) {
@@ -30,7 +37,7 @@ export const getUsers = async () => {
 };
 
 // Function to add a user to the database
-export const addUser = async (name: string, email: string) => {
+export const addUser = async (name: string, email: string): Promise<User> => {
   try {
     const res = await pool.query(
       "INSERT INTO users(name, email) VALUES($1, $2) RETURNING *",
@@ -43,12 +50,18 @@ export const addUser = async (name: string, email: string) => {
   }
 };
 
-export const getFilms = async () => {
+export const getFilms = async (filter?: { id?: string }): Promise<Film[]> => {
   try {
-    const res = await pool.query('SELECT * FROM films');
+    if (filter?.id) {
+      const res = await pool.query("SELECT * FROM films WHERE id = $1", [
+        filter.id,
+      ]);
+      return res.rows;
+    }
+    const res = await pool.query("SELECT * FROM films");
     return res.rows;
   } catch (err) {
-    console.error('Error fetching films:', err);
+    console.error("Error fetching films:", err);
     throw err;
   }
 };
@@ -61,44 +74,60 @@ export const addFilm = async (
 ) => {
   try {
     const res = await pool.query(
-      'INSERT INTO films (name, release_date, imdb_url, genre) VALUES ($1, $2, $3, $4) RETURNING *',
+      "INSERT INTO films (name, release_date, imdb_url, genre) VALUES ($1, $2, $3, $4) RETURNING *",
       [name, releaseDate, imdbUrl, genre]
     );
     return res.rows[0];
   } catch (err) {
-    console.error('Error adding film:', err);
+    console.error("Error adding film:", err);
     throw err;
   }
 };
 
-export const getReviews = async (filter: { userId?: string; filmId?: string }) => {
-  const { userId, filmId } = filter;
-  let query = 'SELECT * FROM reviews';
-  const values: string[] = [];
-  const conditions: string[] = [];
 
-  if (userId) {
-    conditions.push('user_id = $' + (values.length + 1));
-    values.push(userId);
-  }
-
-  if (filmId) {
-    conditions.push('film_id = $' + (values.length + 1));
-    values.push(filmId);
-  }
-
-  if (conditions.length > 0) {
-    query += ' WHERE ' + conditions.join(' AND ');
-  }
-
+export const getReviews = async (filter: ReviewFilter): Promise<Review[]> => {
   try {
-    const res = await pool.query(query, values);
+    const query = "SELECT * FROM reviews WHERE user_id = $1 OR film_id = $2";
+    const params = [filter.userId, filter.filmId];
+    const res = await pool.query(query, params);
     return res.rows;
   } catch (err) {
-    console.error('Error fetching reviews:', err);
+    console.error("Error fetching reviews:", err);
     throw err;
   }
 };
+
+// export const getReviews = async (filter: {
+//   userId?: string;
+//   filmId?: string;
+// }): Promise<Review[]> => {
+//   const { userId, filmId } = filter;
+//   let query = "SELECT * FROM reviews";
+//   const values: string[] = [];
+//   const conditions: string[] = [];
+
+//   if (userId) {
+//     conditions.push("user_id = $" + (values.length + 1));
+//     values.push(userId);
+//   }
+
+//   if (filmId) {
+//     conditions.push("film_id = $" + (values.length + 1));
+//     values.push(filmId);
+//   }
+
+//   if (conditions.length > 0) {
+//     query += " WHERE " + conditions.join(" AND ");
+//   }
+
+//   try {
+//     const res = await pool.query(query, values);
+//     return res.rows;
+//   } catch (err) {
+//     console.error("Error fetching reviews:", err);
+//     throw err;
+//   }
+// };
 
 export const addReview = async (reviewData: {
   filmId: string;
@@ -175,7 +204,7 @@ export const addReview = async (reviewData: {
     );
     return res.rows[0];
   } catch (err) {
-    console.error('Error adding review:', err);
+    console.error("Error adding review:", err);
     throw err;
   }
 };
