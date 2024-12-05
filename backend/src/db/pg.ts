@@ -42,3 +42,140 @@ export const addUser = async (name: string, email: string) => {
     throw err;
   }
 };
+
+export const getFilms = async () => {
+  try {
+    const res = await pool.query('SELECT * FROM films');
+    return res.rows;
+  } catch (err) {
+    console.error('Error fetching films:', err);
+    throw err;
+  }
+};
+
+export const addFilm = async (
+  name: string,
+  releaseDate: string,
+  imdbUrl: string,
+  genre: string
+) => {
+  try {
+    const res = await pool.query(
+      'INSERT INTO films (name, release_date, imdb_url, genre) VALUES ($1, $2, $3, $4) RETURNING *',
+      [name, releaseDate, imdbUrl, genre]
+    );
+    return res.rows[0];
+  } catch (err) {
+    console.error('Error adding film:', err);
+    throw err;
+  }
+};
+
+export const getReviews = async (filter: { userId?: string; filmId?: string }) => {
+  const { userId, filmId } = filter;
+  let query = 'SELECT * FROM reviews';
+  const values: string[] = [];
+  const conditions: string[] = [];
+
+  if (userId) {
+    conditions.push('user_id = $' + (values.length + 1));
+    values.push(userId);
+  }
+
+  if (filmId) {
+    conditions.push('film_id = $' + (values.length + 1));
+    values.push(filmId);
+  }
+
+  if (conditions.length > 0) {
+    query += ' WHERE ' + conditions.join(' AND ');
+  }
+
+  try {
+    const res = await pool.query(query, values);
+    return res.rows;
+  } catch (err) {
+    console.error('Error fetching reviews:', err);
+    throw err;
+  }
+};
+
+export const addReview = async (reviewData: {
+  filmId: string;
+  userId: string;
+  engagement?: string;
+  engagementScore: number;
+  acting?: string;
+  actingScore: number;
+  plotConsistency?: string;
+  plotConsistencyScore: number;
+  sceneChoice?: string;
+  sceneChoiceScore: number;
+  dialogue?: string;
+  dialogueScore: number;
+  characterDesires?: string;
+  characterDesiresScore: number;
+  theme?: string;
+  themeScore: number;
+  suitability?: string;
+  suitabilityScore: number;
+  overallScore: number;
+}) => {
+  const {
+    filmId,
+    userId,
+    engagement,
+    engagementScore,
+    acting,
+    actingScore,
+    plotConsistency,
+    plotConsistencyScore,
+    sceneChoice,
+    sceneChoiceScore,
+    dialogue,
+    dialogueScore,
+    characterDesires,
+    characterDesiresScore,
+    theme,
+    themeScore,
+    suitability,
+    suitabilityScore,
+    overallScore,
+  } = reviewData;
+
+  try {
+    const res = await pool.query(
+      `INSERT INTO reviews (
+        film_id, user_id, engagement, engagement_score, acting, acting_score,
+        plot_consistency, plot_consistency_score, scene_choice, scene_choice_score,
+        dialogue, dialogue_score, character_desires, character_desires_score,
+        theme, theme_score, suitability, suitability_score, overall_score
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19) RETURNING *`,
+      [
+        filmId,
+        userId,
+        engagement,
+        engagementScore,
+        acting,
+        actingScore,
+        plotConsistency,
+        plotConsistencyScore,
+        sceneChoice,
+        sceneChoiceScore,
+        dialogue,
+        dialogueScore,
+        characterDesires,
+        characterDesiresScore,
+        theme,
+        themeScore,
+        suitability,
+        suitabilityScore,
+        overallScore,
+      ]
+    );
+    return res.rows[0];
+  } catch (err) {
+    console.error('Error adding review:', err);
+    throw err;
+  }
+};

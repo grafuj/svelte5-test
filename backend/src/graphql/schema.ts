@@ -6,7 +6,8 @@ import {
   GraphQLFloat,
   GraphQLNonNull,
 } from 'graphql';
-import { getUsers, addUser, getFilms, addFilm, getReviews, addReview } from '../db/pg';
+// import { getUsers, addUser, getFilms, addFilm, getReviews, addReview } from '../db/pg';
+import { getUsers, addUser } from '../db/pg';
 
 // Define User type
 const UserType = new GraphQLObjectType({
