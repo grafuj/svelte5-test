@@ -3,31 +3,37 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import { schema } from './graphql/schema'; // Import the GraphQL schema
-// import { generateCity } from './generateCity'; // City generation logic
+import dotenv from 'dotenv';
+
+// Load environment variables from the .env file
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());  // Enable CORS
-app.use(bodyParser.json());  // JSON parsing
+app.use(cors()); // Enable CORS for cross-origin requests
+app.use(bodyParser.json()); // Parse incoming JSON requests
 
 // Apollo Server setup
 const server = new ApolloServer({
   schema,
+  context: ({ req }) => {
+    // Include any additional context (e.g., authentication, user info)
+    return {
+      headers: req.headers,
+    };
+  },
 });
 
-// Apply Apollo GraphQL middleware
-server.applyMiddleware({ app });
+// Start the Apollo Server and apply middleware
+(async () => {
+  await server.start();
+  server.applyMiddleware({ app });
 
-// Main route for city generation (you can add your generateCity logic here)
-app.post('/generateCity', (req, res) => {
-  const cityData = generateCity(req.body);  // rm this function for what it will be in the future
-  res.json(cityData);
-});
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-  console.log(`GraphQL endpoint available at http://localhost:${port}/graphql`);
-});
+  // Start the Express server
+  app.listen(port, () => {
+    console.log(`🚀 Server ready at http://localhost:${port}`);
+    console.log(`GraphQL endpoint at http://localhost:${port}${server.graphqlPath}`);
+  });
+})();
