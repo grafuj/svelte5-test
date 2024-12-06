@@ -7,7 +7,7 @@ import {
   addUser,
   addFilm,
   addReview,
-} from "db/pg";
+} from "../db/pg";
 
 export const resolvers = {
   Query: {
