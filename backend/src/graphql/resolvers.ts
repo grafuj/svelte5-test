@@ -1,4 +1,4 @@
-import { Review, User, Film } from "types";
+import { Review, User, Film, ReviewFilter } from "types";
 
 import {
   getUsers,
@@ -14,7 +14,8 @@ export const resolvers = {
     // Root queries for users, films, and reviews
     users: async (): Promise<User[]> => getUsers(),
     films: async (): Promise<Film[]> => getFilms(),
-    reviews: async (): Promise<Review[]> => getReviews({}), // Fetch all reviews (no filter)
+    reviews: async (_parent: any, args: ReviewFilter): Promise<Review[]> =>
+      getReviews({ userId: args.userId, filmId: args.filmId }), // Fetch all reviews (no filter)
   },
   Mutation: {
     // Add a new user

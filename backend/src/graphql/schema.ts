@@ -14,8 +14,9 @@ import {
   getReviews,
   addReview,
 } from "../db/pg";
+import { resolvers } from "./resolvers";
 
-import { Review, Film, User } from "types";
+import { Review, Film, User, ReviewFilter } from "types";
 
 // Define User type
 const UserType = new GraphQLObjectType({
@@ -86,15 +87,19 @@ const RootQuery = new GraphQLObjectType({
   fields: (): Record<string, any> => ({
     users: {
       type: new GraphQLList(UserType),
-      resolve: () => getUsers(),
+      resolve: resolvers.Query.users,
     },
     films: {
       type: new GraphQLList(FilmType),
-      resolve: () => getFilms(),
+      resolve: resolvers.Query.films,
     },
     reviews: {
       type: new GraphQLList(ReviewType),
-      resolve: () => getReviews(),
+      args: {
+        userId: { type: GraphQLString },
+        filmId: { type: GraphQLString },
+      },
+      resolve: resolvers.Query.reviews,
     },
   }),
 });
@@ -110,8 +115,7 @@ const Mutation = new GraphQLObjectType({
         email: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve: async (_parent, args) =>
-        addUser(args.username, args.email, args.password),
+      resolve: resolvers.Mutation.addUser,
     },
     addFilm: {
       type: FilmType,
@@ -121,8 +125,7 @@ const Mutation = new GraphQLObjectType({
         imdbUrl: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve: async (_parent, args) =>
-        addFilm(args.name, args.releaseDate, args.imdbUrl, args.genre),
+      resolve: resolvers.Mutation.addFilm,
     },
     addReview: {
       type: ReviewType,
@@ -147,7 +150,7 @@ const Mutation = new GraphQLObjectType({
         suitabilityScore: { type: new GraphQLNonNull(GraphQLFloat) },
         overallScore: { type: new GraphQLNonNull(GraphQLFloat) },
       },
-      resolve: async (_parent, args) => addReview(args),
+      resolve: resolvers.Mutation.addReview,
     },
   }),
 });
