@@ -34,3 +34,8 @@ export interface Review {
   userId: string;
   filmId: string;
 }
+
+export interface ReviewFilter {
+  userId?: string;
+  filmId?: string;
+}

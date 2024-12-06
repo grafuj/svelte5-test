@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { User, Film, Review } from "types";
+import { User, Film, Review, ReviewFilter } from "types";
 
 import dotenv from "dotenv";
 
