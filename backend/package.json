@@ -5,29 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "build": "npm install && echo 'Build complete'"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts --exec ts-node",
+    "fullProd": "npm install && npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.11.2",
-    "apollo-server-express": "^3.13.0",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.1",
     "graphql": "^16.9.0",
     "nodemon": "^3.1.7",
-    "pg": "^8.13.1",
-    "pg-promise": "^11.10.2",
-    "postgres": "^3.4.5"
+    "pg": "^8.13.1"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.19.5",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
     "@types/node": "^22.10.1",
     "@types/pg": "^8.11.10",
     "ts-node": "^10.9.2",

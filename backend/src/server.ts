@@ -20,7 +20,4 @@ const server = new ApolloServer({
   });
 
   console.log(`🚀 Server ready at ${url}`);
-  console.log(
-    `GraphQL endpoint at http://localhost:${port}${server.graphqlPath}`
-  );
 })();
