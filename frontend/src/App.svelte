@@ -15,7 +15,7 @@
 </script>
 
 <main>
-  <h1>Vite + Svelte</h1>
+  <h1>Svelte5 test</h1>
 
   {#if error}
     <p style="color: red;">Error: {error}</p>
