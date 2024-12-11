@@ -1,7 +1,7 @@
 <script lang="ts">
+  // Fetch and display film details
   export let filmId: string;
 
-  // Fetch and display film details if needed
 </script>
 
 <main>
