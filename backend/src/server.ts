@@ -9,10 +9,6 @@ const port = process.env.PORT || 5000;
 console.log("port: ", port);
 const server = new ApolloServer({
   schema,
-  cors: {
-    origin: "http://localhost:5500",
-    credentials: true,
-  },
 });
 
 (async () => {
@@ -20,6 +16,10 @@ const server = new ApolloServer({
     listen: { port: Number(port) },
     context: async ({ req }: any) => {
       return { headers: req.headers };
+    },
+    cors: {
+      origin: "http://localhost:5173",
+      credentials: true,
     },
   });
 
