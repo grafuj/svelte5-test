@@ -21,7 +21,7 @@ export async function fetchFilms(): Promise<any[]> {
     body: JSON.stringify(graphqlQuery),
   });
 
-  console.log("response: ", response);
+  console.log("api.ts 24 response: ", response);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch films: ${response.statusText}`);
