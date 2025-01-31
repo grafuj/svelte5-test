@@ -1,43 +1,19 @@
-import { ApolloServer } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
-import express from "express";
-import cors from "cors";
-import { schema } from "./graphql/schema";
-import dotenv from "dotenv";
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import { ApolloServer } from 'apollo-server';
+import { createSchema } from './schema';
 
-dotenv.config();
+async function bootstrap() {
+  // Create a TypeORM connection
+  await createConnection();
 
-const port = process.env.PORT || 5000;
+  // Build the GraphQL schema
+  const schema = await createSchema();
 
-async function startServer() {
-  const app = express();
-
-  // Create Apollo Server
-  const server = new ApolloServer({
-    schema,
-  });
-
-  await server.start();
-
-  // Apply CORS middleware
-  app.use(
-    "/graphql",
-    cors({
-      origin: "http://localhost:5173", // Allow requests from this origin
-      credentials: true, // Allow credentials (if needed)
-    }),
-    express.json(),
-    expressMiddleware(server, {
-      context: async ({ req }) => ({ headers: req.headers }),
-    })
-  );
-
-  // Start the server
-  app.listen(port, () => {
-    console.log(`🚀 Server ready at http://localhost:${port}/graphql`);
-  });
+  // Start the Apollo Server
+  const server = new ApolloServer({ schema });
+  const { url } = await server.listen(4000);
+  console.log(`Server is running at ${url}`);
 }
 
-startServer().catch((err) => {
-  console.error("Error starting server:", err);
-});
+bootstrap();
