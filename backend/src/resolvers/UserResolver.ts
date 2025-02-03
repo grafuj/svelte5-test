@@ -1,6 +1,6 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-import { User } from '../entities/User';
-import { AppDataSource } from '../data-source';
+import { Resolver, Query, Mutation, Arg } from "type-graphql";
+import { User } from "../entities/User";
+import { AppDataSource } from "../data-source";
 
 @Resolver(User)
 export class UserResolver {
@@ -11,12 +11,11 @@ export class UserResolver {
 
   @Mutation(() => User)
   async addUser(
-    @Arg('username') username: string,
-    @Arg('email') email: string
+    @Arg("username") username: string,
+    @Arg("email") email: string
   ): Promise<User> {
-    const user = new User();
-    user.username = username;
-    user.email = email;
-    return AppDataSource.getRepository(User).save(user);
+    const userRepository = AppDataSource.getRepository(User);
+    const user = userRepository.create({ username, email });
+    return userRepository.save(user);
   }
 }
