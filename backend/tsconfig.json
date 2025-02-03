@@ -10,7 +10,9 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "experimentalDecorators": true, // Required for decorators
+    "emitDecoratorMetadata": true // Required for TypeGraphQL
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
