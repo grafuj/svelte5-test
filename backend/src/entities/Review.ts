@@ -11,7 +11,7 @@ export class Review {
   id!: string;
 
   @Field(() => String)
-  @Column()
+  @Column() // ensures that they exist in the database
   userId!: string;
 
   @Field(() => String)
@@ -81,6 +81,10 @@ export class Review {
   @Field()
   @Column()
   suitabilityScore!: number;
+
+  @Field()
+  @Column()
+  overallScore!: number;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.reviews)
