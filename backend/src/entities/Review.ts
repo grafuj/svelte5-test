@@ -8,7 +8,7 @@ import { Film } from './Film';
 export class Review {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
@@ -16,15 +16,69 @@ export class Review {
 
   @Field()
   @Column()
-  engagementScore: number;
+  engagementScore!: number;
+  
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  acting?: string;
 
-  // Add other fields...
+  @Field()
+  @Column()
+  actingScore!: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  plotConsistency?: string;
+
+  @Field()
+  @Column()
+  plotConsistencyScore!: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  sceneChoice?: string;
+
+  @Field()
+  @Column()
+  sceneChoiceScore!: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  dialogue?: string;
+
+  @Field()
+  @Column()
+  dialogueScore!: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  characterDesires?: string;
+
+  @Field()
+  @Column()
+  characterDesiresScore!: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  theme?: string;
+
+  @Field()
+  @Column()
+  themeScore!: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  suitability?: string;
+
+  @Field()
+  @Column()
+  suitabilityScore!: number;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.reviews)
-  user: User;
+  user!: User;
 
   @Field(() => Film)
   @ManyToOne(() => Film, (film) => film.reviews)
-  film: Film;
+  film!: Film;
 }
