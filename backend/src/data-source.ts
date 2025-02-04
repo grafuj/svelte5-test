@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { User } from './entities/User';
 import { Film } from './entities/Film';
 import { Review } from './entities/Review';
+import "dotenv/config";
 
 export const AppDataSource = new DataSource({
   type: 'postgres', // Change to your database type
