@@ -7,25 +7,26 @@ import { Review } from './Review';
 export class Film {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Field()
   @Column()
-  name: string;
+  name!: string;
 
   @Field()
   @Column()
-  releaseDate: string;
+  releaseDate!: string;
 
   @Field()
   @Column()
-  imdbUrl: string;
+  imdbUrl!: string;
 
   @Field()
   @Column()
-  genre: string;
+  genre!: string;
 
   @Field(() => [Review])
+  // One film can have many reviews
   @OneToMany(() => Review, (review) => review.film)
-  reviews: Review[];
+  reviews: Review[] = [];
 }

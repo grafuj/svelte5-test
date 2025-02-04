@@ -7,17 +7,17 @@ import { Review } from './Review';
 export class User {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Field()
   @Column()
-  username: string;
+  username!: string;
 
   @Field()
   @Column()
-  email: string;
+  email!: string;
 
   @Field(() => [Review])
   @OneToMany(() => Review, (review) => review.user)
-  reviews: Review[];
+  reviews: Review[] = [];
 }
