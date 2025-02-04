@@ -1,14 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
-import { User } from './User';
-import { Film } from './Film';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { ObjectType, Field, ID } from "type-graphql";
+import { User } from "./User";
+import { Film } from "./Film";
 
 @ObjectType()
 @Entity()
 export class Review {
   @Field(() => ID)
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
+
+  @Field(() => String)
+  @Column()
+  userId!: string;
+
+  @Field(() => String)
+  @Column()
+  filmId!: string;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
@@ -17,7 +25,7 @@ export class Review {
   @Field()
   @Column()
   engagementScore!: number;
-  
+
   @Field({ nullable: true })
   @Column({ nullable: true })
   acting?: string;

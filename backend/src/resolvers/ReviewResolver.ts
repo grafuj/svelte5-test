@@ -13,26 +13,26 @@ export class ReviewResolver {
   async addReview(
     @Arg("filmId") filmId: string,
     @Arg("userId") userId: string,
-    @Arg("engagement", { nullable: true }) engagement?: string,
     @Arg("engagementScore") engagementScore: number,
-    @Arg("acting", { nullable: true }) acting?: string,
     @Arg("actingScore") actingScore: number,
-    @Arg("plotConsistency", { nullable: true }) plotConsistency?: string,
     @Arg("plotConsistencyScore") plotConsistencyScore: number,
-    @Arg("sceneChoice", { nullable: true }) sceneChoice?: string,
     @Arg("sceneChoiceScore") sceneChoiceScore: number,
-    @Arg("dialogue", { nullable: true }) dialogue?: string,
     @Arg("dialogueScore") dialogueScore: number,
-    @Arg("characterDesires", { nullable: true }) characterDesires?: string,
     @Arg("characterDesiresScore") characterDesiresScore: number,
-    @Arg("theme", { nullable: true }) theme?: string,
     @Arg("themeScore") themeScore: number,
-    @Arg("suitability", { nullable: true }) suitability?: string,
     @Arg("suitabilityScore") suitabilityScore: number,
-    @Arg("overallScore") overallScore: number
+    @Arg("overallScore") overallScore: number,
+    @Arg("engagement", { nullable: true }) engagement?: string,
+    @Arg("acting", { nullable: true }) acting?: string,
+    @Arg("plotConsistency", { nullable: true }) plotConsistency?: string,
+    @Arg("sceneChoice", { nullable: true }) sceneChoice?: string,
+    @Arg("dialogue", { nullable: true }) dialogue?: string,
+    @Arg("characterDesires", { nullable: true }) characterDesires?: string,
+    @Arg("theme", { nullable: true }) theme?: string,
+    @Arg("suitability", { nullable: true }) suitability?: string
   ): Promise<Review> {
     const reviewRepository = AppDataSource.getRepository(Review);
-    
+
     const review = reviewRepository.create({
       filmId,
       userId,
@@ -52,7 +52,7 @@ export class ReviewResolver {
       themeScore,
       suitability,
       suitabilityScore,
-      overallScore
+      overallScore,
     });
 
     return reviewRepository.save(review);
