@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
 import { Film } from "../entities/Film";
 import { AppDataSource } from "../data-source";
