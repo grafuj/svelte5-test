@@ -19,5 +19,5 @@ export class User {
 
   @Field(() => [Review])
   @OneToMany(() => Review, (review) => review.user)
-  reviews: Review[] = [];
+  reviews?: Review[];
 }

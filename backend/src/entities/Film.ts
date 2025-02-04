@@ -28,5 +28,5 @@ export class Film {
   @Field(() => [Review])
   // One film can have many reviews
   @OneToMany(() => Review, (review) => review.film)
-  reviews: Review[] = [];
+  reviews?: Review[];
 }

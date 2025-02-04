@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 import { User } from './entities/User';
 import { Film } from './entities/Film';
 import { Review } from './entities/Review';
-import "dotenv/config";
+import "dotenv/config"; // need this import in every file that uses a process.env.NAME
 
 export const AppDataSource = new DataSource({
   type: 'postgres', // Change to your database type
