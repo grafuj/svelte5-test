@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   host: process.env.DB_HOST, // Database host
   port: Number(process.env.DB_PORT), // Database port
   username: process.env.DB_USER, // Database username
-  password: process.env.DB_PASS, // Database password
+  password: String(process.env.DB_PASS), // Database password
   database: process.env.DB_NAME, // Database name
   synchronize: true, // Automatically sync schema (only for development!)
   logging: true, // Enable logging

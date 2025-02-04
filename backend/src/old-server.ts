@@ -2,7 +2,7 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import express from "express";
 import cors from "cors";
-import { schema } from "./graphql/old-schema";
+import { schema } from "./old-graphql/old-schema";
 import dotenv from "dotenv";
 
 dotenv.config();
