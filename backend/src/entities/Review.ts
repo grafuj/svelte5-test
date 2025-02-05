@@ -23,7 +23,7 @@ export class Review {
   engagement?: string;
 
   @Field()
-  @Column("float")
+  @Column("float") // we need float or else TypeORM will assume the type number is an INT and throw an error when it gets decimals
   engagementScore!: number;
 
   @Field({ nullable: true })
@@ -84,7 +84,7 @@ export class Review {
 
   @Field()
   @Column("float")
-  overallScore!: number;
+  overallScore?: number;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.reviews)
