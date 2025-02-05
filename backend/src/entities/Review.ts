@@ -23,7 +23,7 @@ export class Review {
   engagement?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   engagementScore!: number;
 
   @Field({ nullable: true })
@@ -31,7 +31,7 @@ export class Review {
   acting?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   actingScore!: number;
 
   @Field({ nullable: true })
@@ -39,7 +39,7 @@ export class Review {
   plotConsistency?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   plotConsistencyScore!: number;
 
   @Field({ nullable: true })
@@ -47,7 +47,7 @@ export class Review {
   sceneChoice?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   sceneChoiceScore!: number;
 
   @Field({ nullable: true })
@@ -55,7 +55,7 @@ export class Review {
   dialogue?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   dialogueScore!: number;
 
   @Field({ nullable: true })
@@ -63,7 +63,7 @@ export class Review {
   characterDesires?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   characterDesiresScore!: number;
 
   @Field({ nullable: true })
@@ -71,7 +71,7 @@ export class Review {
   theme?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   themeScore!: number;
 
   @Field({ nullable: true })
@@ -79,11 +79,11 @@ export class Review {
   suitability?: string;
 
   @Field()
-  @Column()
+  @Column("float")
   suitabilityScore!: number;
 
   @Field()
-  @Column()
+  @Column("float")
   overallScore!: number;
 
   @Field(() => User)
