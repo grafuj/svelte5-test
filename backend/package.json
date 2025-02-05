@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts --exec ts-node",
-    "fullProd": "npm install && npm run build && npm run start"
+    "fullProd": "npm install && npm run build && npm run start",
+    "seed": "ts-node src/seeds.ts"
   },
   "keywords": [],
   "author": "",
