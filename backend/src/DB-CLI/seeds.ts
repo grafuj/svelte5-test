@@ -113,16 +113,15 @@ const seedDatabase = async () => {
       overallScore: 2.63,
     },
   ]);
-  await reviewRepository.save(reviews);
 
-  console.log("Seeding completed!");
-  await AppDataSource.destroy();
+  try {
+    await reviewRepository.save(reviews);
+    console.log("Seeding completed!");
+  } catch (error) {
+    console.error("Error saving after running seeds: ", error);
+  } finally {
+    await AppDataSource.destroy();
+  }
 };
 
-try {
-  seedDatabase();
-} catch {
-  (error: any) => {
-    console.error("Error seeding database:", error);
-  };
-}
+seedDatabase();
