@@ -28,13 +28,13 @@ export async function fetchFilms(): Promise<any[]> {
   }
 
   const responseData = await response.json();
-  console.log("api.ts 30 responseData: ", responseData);
+  console.log("films 30 responseData: ", responseData);
 
   if (responseData.errors) {
-    console.error("api.ts 33 GraphQL Errors: ", responseData.errors);
+    console.error("films 33 GraphQL Errors: ", responseData.errors);
     throw new Error(`GraphQL Error: ${responseData.errors[0].message}`);
   }
 
-  console.log("api.ts 37 Films Data: ", responseData.data.films);
+  console.log("Films Data: ", responseData.data.films);
   return responseData.data.films;
 }

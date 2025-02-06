@@ -1,7 +1,7 @@
-import { AppDataSource } from "./data-source";
-import { Film } from "./entities/Film";
-import { User } from "./entities/User";
-import { Review } from "./entities/Review";
+import { AppDataSource } from "../data-source";
+import { Film } from "../entities/Film";
+import { User } from "../entities/User";
+import { Review } from "../entities/Review";
 
 const seedDatabase = async () => {
   await AppDataSource.initialize();
@@ -13,12 +13,42 @@ const seedDatabase = async () => {
 
   // Insert Films
   const films = filmRepository.create([
-    { name: "Spiderman", releaseDate: "2002", imdbUrl: "https://www.imdb.com/title/tt0145487/", genre: "action" },
-    { name: "Spiderman 2", releaseDate: "2004", imdbUrl: "https://www.imdb.com/title/tt0316654/", genre: "action" },
-    { name: "Spiderman 3", releaseDate: "2007", imdbUrl: "https://www.imdb.com/title/tt0413300/", genre: "action" },
-    { name: "Everything Everywhere All At Once", releaseDate: "2022", imdbUrl: "https://www.imdb.com/title/tt6710474/", genre: "adventure" },
-    { name: "Harry Potter and the Chamber of Secrets", releaseDate: "2002", imdbUrl: "https://www.imdb.com/title/tt0295297/", genre: "adventure" },
-    { name: "Good Will Hunting", releaseDate: "1997", imdbUrl: "https://www.imdb.com/title/tt0119217/", genre: "Drama" },
+    {
+      name: "Spiderman",
+      releaseDate: "2002",
+      imdbUrl: "https://www.imdb.com/title/tt0145487/",
+      genre: "action",
+    },
+    {
+      name: "Spiderman 2",
+      releaseDate: "2004",
+      imdbUrl: "https://www.imdb.com/title/tt0316654/",
+      genre: "action",
+    },
+    {
+      name: "Spiderman 3",
+      releaseDate: "2007",
+      imdbUrl: "https://www.imdb.com/title/tt0413300/",
+      genre: "action",
+    },
+    {
+      name: "Everything Everywhere All At Once",
+      releaseDate: "2022",
+      imdbUrl: "https://www.imdb.com/title/tt6710474/",
+      genre: "adventure",
+    },
+    {
+      name: "Harry Potter and the Chamber of Secrets",
+      releaseDate: "2002",
+      imdbUrl: "https://www.imdb.com/title/tt0295297/",
+      genre: "adventure",
+    },
+    {
+      name: "Good Will Hunting",
+      releaseDate: "1997",
+      imdbUrl: "https://www.imdb.com/title/tt0119217/",
+      genre: "Drama",
+    },
   ]);
   await filmRepository.save(films);
 
@@ -44,11 +74,13 @@ const seedDatabase = async () => {
       engagementScore: 5.33,
       acting: "some bizarre acting, JK Simmons excellent",
       actingScore: 4,
-      plotConsistency: "spiderman has dubious abilities, childhood friends are a dime a dozen",
+      plotConsistency:
+        "spiderman has dubious abilities, childhood friends are a dime a dozen",
       plotConsistencyScore: 3.67,
       sceneChoice: "moderate",
       sceneChoiceScore: 4.67,
-      dialogue: "main character does not show awkwardness and barely says anything at opportune moments",
+      dialogue:
+        "main character does not show awkwardness and barely says anything at opportune moments",
       dialogueScore: 2,
       characterDesires: "incomprehensible",
       characterDesiresScore: 1.67,
@@ -69,7 +101,8 @@ const seedDatabase = async () => {
       plotConsistencyScore: 4.67,
       sceneChoice: "worse",
       sceneChoiceScore: 2.33,
-      dialogue: "main character does not show awkwardness and barely says anything at opportune moments",
+      dialogue:
+        "main character does not show awkwardness and barely says anything at opportune moments",
       dialogueScore: 1.67,
       characterDesires: "incomprehensible",
       characterDesiresScore: 1.67,
@@ -86,6 +119,10 @@ const seedDatabase = async () => {
   await AppDataSource.destroy();
 };
 
-seedDatabase().catch((error) => {
-  console.error("Error seeding database:", error);
-});
+try {
+  seedDatabase();
+} catch {
+  (error: any) => {
+    console.error("Error seeding database:", error);
+  };
+}

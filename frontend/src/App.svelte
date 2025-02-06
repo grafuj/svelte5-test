@@ -18,9 +18,7 @@
 </script>
 
 <main>
-
-
-  <h1>Svelte5 test</h1>
+  <h1>Svelte5 test: watchworth</h1>
 
   {#if error}
     <p style="color: red;">Error: {error}</p>
@@ -37,7 +35,6 @@
     {:else}
       <p>Loading films...</p>
     {/if}
-  </div>
     <h2>Users</h2>
     {#if users.length > 0}
       <ul>
