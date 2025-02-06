@@ -24,13 +24,14 @@ export async function fetchUsers(): Promise<any[]> {
   }
 
   const responseData = await response.json();
-  console.log("users 30 responseData: ", responseData);
-
+  // console.log("users 30 responseData: ", responseData);
+  
   if (responseData.errors) {
+    console.log("responseData: ", responseData);
     console.error("users 33 GraphQL Errors: ", responseData.errors);
     throw new Error(`GraphQL Error: ${responseData.errors[0].message}`);
   }
 
-  console.log("users 37 Users Data: ", responseData.data.users);
+  // console.log("users 37 Users Data: ", responseData.data.users);
   return responseData.data.users;
 }

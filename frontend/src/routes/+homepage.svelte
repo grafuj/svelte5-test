@@ -1,0 +1,18 @@
+<script lang="ts">
+</script>
+
+<main>
+  <h1>Welcom to watchworth</h1>
+
+  <div>
+    <h2>
+      <a href={`/films/`}>Films</a>
+    </h2>
+    <h2>
+      <a href={`/users/`}>Users</a>
+    </h2>
+    <h2>
+      <a href={`/reviews/`}>Reviews</a>
+    </h2>
+  </div>
+</main>

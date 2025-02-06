@@ -1,16 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fetchFilms } from "./api/fetchFilms";
-  import { fetchUsers } from "./api/fetchUsers";
+  import { fetchFilms } from "../api/fetchFilms";
 
   let films: { id: string; name: string }[] = [];
-  let users: { id: string; username: string }[] = [];
   let error: string | null = null;
 
   onMount(async () => {
     try {
       films = await fetchFilms();
-      users = await fetchUsers();
     } catch (err: any) {
       error = err.message;
     }
@@ -18,7 +15,7 @@
 </script>
 
 <main>
-  <h1>Svelte5 test: watchworth</h1>
+  <h1>Films</h1>
 
   {#if error}
     <p style="color: red;">Error: {error}</p>
@@ -34,16 +31,6 @@
       </ul>
     {:else}
       <p>Loading films...</p>
-    {/if}
-    <h2>Users</h2>
-    {#if users.length > 0}
-      <ul>
-        {#each users as user}
-          <li><a href={`/users/${user.username}`}>{user.username}</a></li>
-        {/each}
-      </ul>
-    {:else}
-      <p>Loading users...</p>
     {/if}
   </div>
 </main>

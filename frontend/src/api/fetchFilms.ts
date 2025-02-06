@@ -21,20 +21,21 @@ export async function fetchFilms(): Promise<any[]> {
     body: JSON.stringify(graphqlQuery),
   });
 
-  console.log("api.ts 24 response: ", response);
+  // console.log("api.ts 24 response: ", response);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch films: ${response.statusText}`);
   }
 
   const responseData = await response.json();
-  console.log("films 30 responseData: ", responseData);
-
+  // console.log("films 30 responseData: ", responseData);
+  
   if (responseData.errors) {
-    console.error("films 33 GraphQL Errors: ", responseData.errors);
+    console.log("responseData: ", responseData);
+    console.error("GraphQL Errors: ", responseData.errors);
     throw new Error(`GraphQL Error: ${responseData.errors[0].message}`);
   }
 
-  console.log("Films Data: ", responseData.data.films);
+  // console.log("Films Data: ", responseData.data.films);
   return responseData.data.films;
 }
