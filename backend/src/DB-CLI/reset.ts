@@ -6,7 +6,7 @@ import { Review } from "../entities/Review";
 const resetDatabase = async () => {
   try {
     await AppDataSource.initialize();
-    console.log("Seeding database...");
+    console.log("Resetting database...");
 
     const filmRepository = AppDataSource.getRepository(Film);
     const userRepository = AppDataSource.getRepository(User);
