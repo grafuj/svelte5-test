@@ -1,5 +1,5 @@
-<script lang="ts">
-</script>
+<!-- <script lang="ts">
+</script> -->
 
 <main>
   <h1>Welcom to watchworth</h1>
