@@ -11,4 +11,8 @@
   <a href="/settings">Settings</a>
 </nav>
 
-{@render children()}
+<main>
+  <!-- <slot /> is deprecated -->
+  {@render children()}
+</main>
+

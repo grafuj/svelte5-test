@@ -3,7 +3,7 @@
 
 <main>
   <h1>Welcom to watchworth</h1>
-
+  <p>This is the home page.</p>
   <div>
     <h2>
       <a href={`/films/`}>Films</a>
