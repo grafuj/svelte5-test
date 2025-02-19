@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { fetchFilms } from "../api/fetchFilms";
+  import { fetchFilms } from "../../api/fetchFilms";
 
   let films: { id: string; name: string }[] = [];
   let error: string | null = null;
