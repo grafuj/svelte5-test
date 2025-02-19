@@ -2,7 +2,7 @@
 </script> -->
 
 <main>
-  <h1>Welcom to watchworth</h1>
+  <h1>Welcome to watchworth</h1>
   <p>This is the home page.</p>
   <div>
     <h2>
