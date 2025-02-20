@@ -9,6 +9,7 @@
   <a href="/users">Users</a>
   <a href="/reviews">Reviews</a>
   <a href="/settings">Settings</a>
+  <p>night icon lol</p>
 </nav>
 
 <main>
