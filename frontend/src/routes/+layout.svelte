@@ -3,8 +3,9 @@
   let { children } = $props();
 </script>
 
-<nav>
+<nav class="container">
   <a href="/">Home</a>
+  <button>Home</button>
   <a href="/about">About</a>
   <a href="/films">Films</a>
   <a href="/users">Users</a>
@@ -13,7 +14,7 @@
   <p>night icon lol</p>
 </nav>
 
-<main>
+<main class="container">
   <!-- <slot /> is deprecated -->
   {@render children()}
 </main>
