@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '@picocss/pico'
   let { children } = $props();
 </script>
 
