@@ -1,47 +1,52 @@
-<script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+<!-- <script lang="ts">
+  import { onMount } from "svelte";
+  import { fetchFilms } from "./api/fetchFilms";
+  import { fetchUsers } from "./api/fetchUsers";
+
+  let films: { id: string; name: string }[] = [];
+  let users: { id: string; username: string }[] = [];
+  let error: string | null = null;
+
+  onMount(async () => {
+    try {
+      films = await fetchFilms();
+      users = await fetchUsers();
+    } catch (err: any) {
+      error = err.message;
+    }
+  });
 </script>
 
 <main>
+  <h1>Svelte5 test: watchworth</h1>
+
+  {#if error}
+    <p style="color: red;">Error: {error}</p>
+  {/if}
+
   <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
+    <h2>Films</h2>
+    {#if films.length > 0}
+      <ul>
+        {#each films as film}
+          <li><a href={`/films/${film.name}`}>{film.name}</a></li>
+        {/each}
+      </ul>
+    {:else}
+      <p>Loading films...</p>
+    {/if}
+    <h2>Users</h2>
+    {#if users.length > 0}
+      <ul>
+        {#each users as user}
+          <li><a href={`/users/${user.username}`}>{user.username}</a></li>
+        {/each}
+      </ul>
+    {:else}
+      <p>Loading users...</p>
+    {/if}
   </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
 </main>
 
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-</style>
+
+ -->

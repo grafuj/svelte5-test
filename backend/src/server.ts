@@ -1,23 +1,29 @@
+import "reflect-metadata";
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
-import { schema } from "./graphql/schema";
-import dotenv from "dotenv";
+import { startStandaloneServer, StandaloneServerContextFunctionArgument } from '@apollo/server/standalone';
+import { createSchema } from "./schema";
+import { AppDataSource } from "./data-source";
 
-dotenv.config();
+async function bootstrap() {
+  try {
+    // Initialize the DataSource
+    await AppDataSource.initialize();
+    console.log("Data Source has been initialized!");
 
-const port = process.env.PORT || 5000;
+    // Build the GraphQL schema
+    const schema = await createSchema();
 
-const server = new ApolloServer({
-  schema,
-});
+    // Start the Apollo Server
+    const server = new ApolloServer({ schema });
+    const { url } = await startStandaloneServer(server, {
+      context: async ({ req }: StandaloneServerContextFunctionArgument) => ({ token: req.headers.token }),
+      listen: { port: 4000 },
+    });
 
-(async () => {
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: Number(port) },
-    context: async ({ req }: any) => {
-      return { headers: req.headers };
-    },
-  });
+    console.log(`Server is running at ${url}`);
+  } catch (err) {
+    console.error("Error during Data Source initialization", err);
+  }
+}
 
-  console.log(`🚀 Server ready at ${url}`);
-})();
+bootstrap();
